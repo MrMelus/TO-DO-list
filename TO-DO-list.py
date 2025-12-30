@@ -25,14 +25,20 @@ def intestazione():
 def new_list():
     x = st.text_input("Come vuoi chiamare la lista?",key="input_nome")
     if (st.button("Conferma e crea")):
-        st.session_state.my_lists.append({"nome": x, "dati": []})
+        if x:
+            st.session_state.my_lists.append({"nome": x, "dati": []})
+            st.success(f"lista '{x}' creata!")
+        else:
+            st.error("Devi scrivere un nome alla lista!")
 
 def show_list(): 
-    if (my_lists):
-        for i, lista in enumerate(my_lists):
-            if st.button(f"Apri {lista}", key=f"btn_{i}"):
-                st.write(f"Stai guardando la lista numero {i}: {lista}")
-
+    if st.session_state.my_lists:
+        for i, lista in enumerate(st.session_state.my_lists):
+            x = lista["nome"]
+            if st.button(f"Apri {x}", key=f"btn_{i}"):
+                st.write(f"Stai guardando la lista {x}")
+    else:
+        st.write("Non hai ancora creato liste")
 
 def main():
     intestazione()
