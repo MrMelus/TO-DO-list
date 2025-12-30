@@ -1,7 +1,5 @@
 import streamlit as st
 
-my_lists = []
-
 if 'my_lists' not in st.session_state:
     st.session_state.my_lists = []
 
