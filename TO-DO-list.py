@@ -1,0 +1,42 @@
+import streamlit as st
+
+my_lists = []
+
+if 'my_lists' not in st.session_state:
+    st.session_state.my_lists = []
+
+def intestazione():
+    col1,col2,col3 = st.columns(3)
+
+    with col1:
+        pass
+
+    with col2:
+        st.header("Benvenuto!")
+        st.write("Vuoi creare una nuova lista?")
+        new_list()
+    
+    with col3:
+        st.write("")
+        st.write("Le tue liste:")
+        show_list()
+
+
+def new_list():
+    x = st.text_input("Come vuoi chiamare la lista?",key="input_nome")
+    if (st.button("Conferma e crea")):
+        st.session_state.my_lists.append({"nome": x, "dati": []})
+
+def show_list(): 
+    if (my_lists):
+        for i, lista in enumerate(my_lists):
+            if st.button(f"Apri {lista}", key=f"btn_{i}"):
+                st.write(f"Stai guardando la lista numero {i}: {lista}")
+
+
+def main():
+    intestazione()
+
+
+if __name__ == "__main__":
+    main()
